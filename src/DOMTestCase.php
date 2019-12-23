@@ -209,21 +209,28 @@ abstract class DOMTestCase extends TestCase
             $options['tag'] = "*";
         }
         
+        $regexAttributes = [];
         if ($options['tag']) {            
             //build xpath select for each attribute.
             $xpathSelector = $options['tag'];
             
             if (is_array($options['attributes'])) {
                 foreach($options['attributes'] as $key => $value) {
-                    if ($key === 'class') {
-                        $xpathSelector .= "[contains(concat(' ', @class, ' '), ' ".$value." ')]";
+                    if (substr($value, 0, 7) === 'regexp:') {
+                        $regexAttributes[$key] = $value;
+                    } else if ($key === 'class') {
+                        // support for multi classes
+                        $classes = explode(" ", $value);
+                        foreach ($classes as $class) {
+                            $xpathSelector .= "[contains(concat(' ', @class, ' '), ' ".$class." ')]";   
+                        }
                     } else {
                         $xpathSelector .= '[@'.$key.'="'.$value.'"]';   
                     }
                 }
-            }           
+            }
 
-            //var_dump($xpathSelector);
+           // var_dump($xpathSelector);
             $count = 0;
             $content = $options['content'];
             if (!empty($content)) {
@@ -237,7 +244,34 @@ abstract class DOMTestCase extends TestCase
                     $count = 1;
                 }
             } else {
-                $count = $crawler->filterXPath('//'.$xpathSelector)->count();
+                $crawler = $crawler->filterXPath('//'.$xpathSelector);
+                $count = count($crawler);
+                //$count = $crawler->filterXPath("//span[contains(@class, '/.+_class/')]")->count();
+                //var_dump($count);
+            }
+            
+            // xpath 1.0 do not support matches, which can be used for regex match in filter. therefore need manual step here.
+            if ($count > 0 && count($regexAttributes) > 0) {
+                $count = 0; // Reset count to zero and match element with regex parameters.
+                $elementsMached = $crawler->filter('*')->each(function (Crawler $node, $i) use ($regexAttributes) {
+                    $machedAllRegex = true;
+                    foreach ($regexAttributes as $key => $regex) {
+                        $value = $node->attr($key);                        
+                        $regex = str_replace('regexp:', '', $regex);
+                        preg_match("$regex", $value, $matches, PREG_OFFSET_CAPTURE);
+                        if (count($matches) === 0) {
+                            $machedAllRegex = false;
+                        }
+                    }
+                    
+                    return $machedAllRegex;
+                });
+                
+                foreach ($elementsMached as $value) {
+                    if ($value === true) {
+                        $count++;
+                    }
+                }
             }
             
             if ($count === 0) {

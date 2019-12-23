@@ -219,6 +219,7 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagAttributesRegexpTrueB()
     {
@@ -230,10 +231,10 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagAttributesRegexpModifierTrue()
     {
-
         $matcher = array('tag' => 'div',
             'attributes' => array('id' => 'regexp:/.+_CHILD_.+/i'));
         $this->assertTag($matcher, $this->html);
@@ -242,10 +243,10 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagAttributesRegexpModifierFalse()
     {
-
         $matcher = array('tag' => 'div',
             'attributes' => array('id' => 'regexp:/.+_CHILD_.+/'));
         $this->assertTag($matcher, $this->html);
@@ -254,10 +255,10 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagAttributesRegexpFalse()
     {
-
         $matcher = array('tag' => 'span',
             'attributes' => array('class' => 'regexp:/.+_missing_.+/'));
         $this->assertTag($matcher, $this->html);
@@ -265,10 +266,11 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagAttributesMultiPartClassTrueA()
     {
-
+        //$this->markTestIncomplete();
         $matcher = array('tag' => 'div',
             'id'  => 'test_multi_class',
             'attributes' => array('class' => 'multi class'));
@@ -277,10 +279,10 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagAttributesMultiPartClassTrueB()
     {
-
         $matcher = array('tag' => 'div',
             'id'  => 'test_multi_class',
             'attributes' => array('class' => 'multi'));
@@ -290,10 +292,10 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagAttributesMultiPartClassFalse()
     {
-
         $matcher = array('tag' => 'div',
             'id'  => 'test_multi_class',
             'attributes' => array('class' => 'mul'));
@@ -302,10 +304,10 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagParentTrue()
     {
-
         $matcher = array('tag' => 'head',
             'parent' => array('tag' => 'html'));
         $this->assertTag($matcher, $this->html);
@@ -314,10 +316,10 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag2
      */
     public function testAssertTagParentFalse()
     {
-
         $matcher = array('tag' => 'head',
             'parent' => array('tag' => 'div'));
         $this->assertTag($matcher, $this->html);
