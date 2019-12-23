@@ -33,31 +33,50 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagTypeTrue()
     {
-        $this->markTestIncomplete();
         $matcher = array('tag' => 'html');
         $this->assertTag($matcher, $this->html);
+    }
+    
+    /**
+     * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
+     */
+    public function testAssertTagInput()
+    {
+        $tag = array(
+            'tag' => 'input',
+            'attributes' => array(
+                'type' => 'text',
+                'name' => 'test_hidden',
+                'value' => 'test123',
+                'id' => 'input_test_id',
+            'class' => 'full half'
+            ),
+        );
+        $this->assertTag($tag, $this->html);
     }
 
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagTypeFalse()
     {
-        $this->markTestIncomplete();
-        $matcher = array('tag' => 'code');
+        $matcher = array('tag' => 'unexpected');
         $this->assertTag($matcher, $this->html);
     }
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagIdTrue()
     {
-        $this->markTestIncomplete();
         $matcher = array('id' => 'test_text');
         $this->assertTag($matcher, $this->html);
     }
@@ -65,20 +84,20 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagIdFalse()
     {
-        $this->markTestIncomplete();
         $matcher = array('id' => 'test_text_doesnt_exist');
         $this->assertTag($matcher, $this->html);
     }
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagStringContentTrue()
     {
-        $this->markTestIncomplete();
         $matcher = array('id' => 'test_text',
             'content' => 'My test tag content');
         $this->assertTag($matcher, $this->html);
@@ -87,10 +106,10 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagStringContentFalse()
     {
-        $this->markTestIncomplete();
         $matcher = array('id' => 'test_text',
             'content' => 'My non existent tag content');
         $this->assertTag($matcher, $this->html);
@@ -98,10 +117,10 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagRegexpContentTrue()
     {
-        $this->markTestIncomplete();
         $matcher = array('id' => 'test_text',
             'content' => 'regexp:/test tag/');
         $this->assertTag($matcher, $this->html);
@@ -109,10 +128,10 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagRegexpModifierContentTrue()
     {
-        $this->markTestIncomplete();
         $matcher = array('id' => 'test_text',
             'content' => 'regexp:/TEST TAG/i');
         $this->assertTag($matcher, $this->html);
@@ -121,10 +140,10 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagRegexpContentFalse()
     {
-        $this->markTestIncomplete();
         $matcher = array('id' => 'test_text',
             'content' => 'regexp:/asdf/');
         $this->assertTag($matcher, $this->html);
@@ -132,10 +151,10 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagCdataContentTrue()
     {
-        $this->markTestIncomplete();
         $matcher = array('tag' => 'script',
             'content' => 'alert(\'Hello, world!\');');
         $this->assertTag($matcher, $this->html);
@@ -144,23 +163,21 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagCdataontentFalse()
     {
-        $this->markTestIncomplete();
         $matcher = array('tag' => 'script',
             'content' => 'asdf');
         $this->assertTag($matcher, $this->html);
     }
 
-
-
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagAttributesTrueA()
     {
-        $this->markTestIncomplete();
         $matcher = array('tag' => 'span',
             'attributes' => array('class' => 'test_class'));
         $this->assertTag($matcher, $this->html);
@@ -168,10 +185,10 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagAttributesTrueB()
     {
-        $this->markTestIncomplete();
         $matcher = array('tag' => 'div',
             'attributes' => array('id' => 'test_child_id'));
         $this->assertTag($matcher, $this->html);
@@ -180,10 +197,10 @@ class DOMTestCaseTest extends DOMTestCase
     /**
      * @covers            \PHPUnit\Framework\DOMTestCase::assertTag
      * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * @group assertTag
      */
     public function testAssertTagAttributesFalse()
     {
-        $this->markTestIncomplete();
         $matcher = array('tag' => 'span',
             'attributes' => array('class' => 'test_missing_class'));
         $this->assertTag($matcher, $this->html);
@@ -191,10 +208,10 @@ class DOMTestCaseTest extends DOMTestCase
 
     /**
      * @covers \PHPUnit\Framework\DOMTestCase::assertTag
+     * @group assertTag
      */
     public function testAssertTagAttributesRegexpTrueA()
     {
-        $this->markTestIncomplete();
         $matcher = array('tag' => 'span',
             'attributes' => array('class' => 'regexp:/.+_class/'));
         $this->assertTag($matcher, $this->html);
@@ -205,7 +222,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAttributesRegexpTrueB()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'attributes' => array('id' => 'regexp:/.+_child_.+/'));
         $this->assertTag($matcher, $this->html);
@@ -216,7 +233,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAttributesRegexpModifierTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'attributes' => array('id' => 'regexp:/.+_CHILD_.+/i'));
         $this->assertTag($matcher, $this->html);
@@ -228,7 +245,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAttributesRegexpModifierFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'attributes' => array('id' => 'regexp:/.+_CHILD_.+/'));
         $this->assertTag($matcher, $this->html);
@@ -240,7 +257,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAttributesRegexpFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'span',
             'attributes' => array('class' => 'regexp:/.+_missing_.+/'));
         $this->assertTag($matcher, $this->html);
@@ -251,7 +268,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAttributesMultiPartClassTrueA()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'id'  => 'test_multi_class',
             'attributes' => array('class' => 'multi class'));
@@ -263,7 +280,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAttributesMultiPartClassTrueB()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'id'  => 'test_multi_class',
             'attributes' => array('class' => 'multi'));
@@ -276,7 +293,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAttributesMultiPartClassFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'id'  => 'test_multi_class',
             'attributes' => array('class' => 'mul'));
@@ -288,7 +305,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagParentTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'head',
             'parent' => array('tag' => 'html'));
         $this->assertTag($matcher, $this->html);
@@ -300,7 +317,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagParentFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'head',
             'parent' => array('tag' => 'div'));
         $this->assertTag($matcher, $this->html);
@@ -311,7 +328,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagMultiplePossibleChildren()
     {
-        $this->markTestIncomplete();
+
         $matcher = array(
             'tag' => 'li',
             'parent' => array(
@@ -327,7 +344,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'html',
             'child' => array('tag' => 'head'));
         $this->assertTag($matcher, $this->html);
@@ -339,7 +356,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'html',
             'child' => array('tag' => 'div'));
         $this->assertTag($matcher, $this->html);
@@ -350,7 +367,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAdjacentSiblingTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'img',
             'adjacent-sibling' => array('tag' => 'input'));
         $this->assertTag($matcher, $this->html);
@@ -362,7 +379,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAdjacentSiblingFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'img',
             'adjacent-sibling' => array('tag' => 'div'));
         $this->assertTag($matcher, $this->html);
@@ -374,7 +391,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAncestorTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'ancestor' => array('tag' => 'html'));
         $this->assertTag($matcher, $this->html);
@@ -386,7 +403,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagAncestorFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'html',
             'ancestor' => array('tag' => 'div'));
         $this->assertTag($matcher, $this->html);
@@ -397,7 +414,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagDescendantTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'html',
             'descendant' => array('tag' => 'div'));
         $this->assertTag($matcher, $this->html);
@@ -409,7 +426,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagDescendantFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'descendant' => array('tag' => 'html'));
         $this->assertTag($matcher, $this->html);
@@ -420,7 +437,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildrenCountTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul',
             'children' => array('count' => 3));
         $this->assertTag($matcher, $this->html);
@@ -432,7 +449,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildrenCountFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul',
             'children' => array('count' => 5));
         $this->assertTag($matcher, $this->html);
@@ -443,7 +460,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildrenLessThanTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul',
             'children' => array('less_than' => 10));
         $this->assertTag($matcher, $this->html);
@@ -455,7 +472,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildrenLessThanFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul',
             'children' => array('less_than' => 2));
         $this->assertTag($matcher, $this->html);
@@ -466,7 +483,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildrenGreaterThanTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul',
             'children' => array('greater_than' => 2));
         $this->assertTag($matcher, $this->html);
@@ -478,7 +495,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildrenGreaterThanFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul',
             'children' => array('greater_than' => 10));
         $this->assertTag($matcher, $this->html);
@@ -489,7 +506,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildrenOnlyTrue()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul',
             'children' => array('only' => array('tag' =>'li')));
         $this->assertTag($matcher, $this->html);
@@ -501,7 +518,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagChildrenOnlyFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul',
             'children' => array('only' => array('tag' =>'div')));
         $this->assertTag($matcher, $this->html);
@@ -512,7 +529,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagTypeIdTrueA()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'ul', 'id' => 'my_ul');
         $this->assertTag($matcher, $this->html);
     }
@@ -522,7 +539,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagTypeIdTrueB()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('id' => 'my_ul', 'tag' => 'ul');
         $this->assertTag($matcher, $this->html);
     }
@@ -532,7 +549,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagTypeIdTrueC()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'input', 'id'  => 'input_test_id');
         $this->assertTag($matcher, $this->html);
     }
@@ -543,7 +560,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagTypeIdFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div', 'id'  => 'my_ul');
         $this->assertTag($matcher, $this->html);
     }
@@ -553,7 +570,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertTagContentAttributes()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'content'    => 'Test Id Text',
             'attributes' => array('id' => 'test_id',
@@ -566,7 +583,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertParentContentAttributes()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag'        => 'div',
             'content'    => 'Test Id Text',
             'attributes' => array('id'    => 'test_id',
@@ -580,7 +597,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertChildContentAttributes()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag'        => 'div',
             'content'    => 'Test Id Text',
             'attributes' => array('id'    => 'test_id',
@@ -595,7 +612,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertAdjacentSiblingContentAttributes()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag'              => 'div',
             'content'          => 'Test Id Text',
             'attributes'       => array('id'    => 'test_id',
@@ -610,7 +627,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertChildSubChildren()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('id' => 'test_id',
             'child' => array('id' => 'test_child_id',
                 'child' => array('id' => 'test_subchild_id')));
@@ -622,7 +639,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertAdjacentSiblingSubAdjacentSibling()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('id' => 'test_id',
             'adjacent-sibling' => array('id' => 'test_children',
                 'adjacent-sibling' => array('class' => 'test_class')));
@@ -634,7 +651,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertAncestorContentAttributes()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('id'         => 'test_subchild_id',
             'content'    => 'My Subchild',
             'attributes' => array('id' => 'test_subchild_id'),
@@ -648,7 +665,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertDescendantContentAttributes()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('id'         => 'test_id',
             'content'    => 'Test Id Text',
             'attributes' => array('id'  => 'test_id'),
@@ -662,7 +679,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertChildrenContentAttributes()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('id'         => 'test_children',
             'content'    => 'My Children',
             'attributes' => array('class'  => 'children'),
@@ -680,7 +697,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertNotTagTypeIdFalse()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div', 'id'  => 'my_ul');
         $this->assertNotTag($matcher, $this->html);
     }
@@ -691,7 +708,7 @@ class DOMTestCaseTest extends DOMTestCase
      */
     public function testAssertNotTagContentAttributes()
     {
-        $this->markTestIncomplete();
+
         $matcher = array('tag' => 'div',
             'content'    => 'Test Id Text',
             'attributes' => array('id' => 'test_id',
